@@ -1,0 +1,474 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design system helpers */
+.hero-gradient {
+  background:
+    radial-gradient(
+      1200px 400px at 50% -200px,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(255, 255, 255, 0) 60%
+    ), linear-gradient(180deg, #0e5c4f 0%, #0b443b 100%);
+}
+
+.display-font {
+  font-family: var(--font-display), serif;
+}
+
+/* Root design tokens (CSS variables) */
+:root {
+  --color-primary: #0e5c4f;
+  --color-primary-alt: #0b443b;
+  --color-success: #2e7d32;
+  --color-warning: #b26a00;
+  --color-error: #b3261e;
+  --color-text: #0f172a;
+  --color-text-subtle: #64748b;
+  --color-bg: #f7faf9;
+  --color-bg-container: #ffffff;
+  --color-border: #e5e7eb;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow-card: 0 4px 24px rgba(2, 6, 12, 0.06);
+  /* Fonts */
+  --font-display:
+    "Mollie Glaston", "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times,
+    serif;
+  --font-sans:
+    "Lato", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Accessibility utilities */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus management for better accessibility */
+:focus {
+  outline: none;
+}
+
+/* Input focus styles to match border radius */
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused,
+.ant-auto-complete .ant-input:focus,
+.ant-auto-complete .ant-input-focused {
+  border-radius: 12px !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(14, 92, 79, 0.2) !important;
+  outline: none !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-radius: 12px !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(14, 92, 79, 0.2) !important;
+  outline: none !important;
+}
+
+.ant-btn:focus {
+  border-radius: 12px !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(14, 92, 79, 0.2) !important;
+  outline: none !important;
+}
+
+/* Column resizing styles */
+.ant-table-wrapper .ant-table-thead > tr > th {
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background-color: transparent;
+  cursor: col-resize;
+  transition: background-color 0.2s;
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th:hover::after {
+  background-color: #d9d9d9;
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th.resizing::after {
+  background-color: #1890ff;
+  width: 2px;
+}
+
+.ant-table-wrapper.resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+.ant-table-wrapper.resizing .ant-table-thead > tr > th {
+  cursor: col-resize;
+}
+
+.ant-table-wrapper.resizing .ant-table-tbody > tr > td {
+  cursor: col-resize;
+}
+
+/* Responsive utilities for enhanced mobile support */
+@media (max-width: 640px) {
+  .ant-table-tbody > tr > td {
+    padding: 8px 12px !important;
+    font-size: 14px;
+  }
+
+  .ant-table-thead > tr > th {
+    padding: 8px 12px !important;
+    font-size: 14px;
+  }
+
+  .ant-btn {
+    height: 36px;
+    padding: 4px 12px;
+    font-size: 14px;
+  }
+
+  .ant-input {
+    height: 36px;
+    padding: 4px 11px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ant-table-tbody > tr > td {
+    padding: 6px 8px !important;
+    font-size: 13px;
+  }
+
+  .ant-table-thead > tr > th {
+    padding: 6px 8px !important;
+    font-size: 13px;
+  }
+
+  .hero-gradient h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+
+  .hero-gradient p {
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Vertically center and enlarge clear (x) icons across inputs and autocomplete */
+.ant-select .ant-select-clear,
+.ant-select-multiple .ant-select-selector .ant-select-clear,
+.ant-auto-complete .ant-select-clear {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important; /* larger click area */
+  height: 28px !important; /* larger click area */
+  right: 8px !important;
+}
+
+.ant-select .ant-select-clear .anticon,
+.ant-select-multiple .ant-select-selector .ant-select-clear .anticon,
+.ant-auto-complete .ant-select-clear .anticon {
+  font-size: 18px !important; /* bigger X glyph */
+  line-height: 1 !important;
+}
+
+.ant-input-clear-icon {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 28px !important; /* larger click area */
+  height: 28px !important; /* larger click area */
+  right: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important; /* bigger X glyph */
+  line-height: 1 !important;
+}
+
+/* Enhanced contrast for better visibility */
+.ant-table-thead > tr > th {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+  font-weight: 600;
+}
+
+/* Better hover states */
+.ant-table-tbody > tr:hover > td {
+  background-color: #f1f5f9 !important;
+}
+
+/* Improved button accessibility */
+.ant-btn:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(14, 92, 79, 0.2) !important;
+}
+
+/* Select dropdown improvements */
+.ant-select-focused .ant-select-selector {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(14, 92, 79, 0.2) !important;
+}
+
+/* Custom font: Mollie Glaston (served from public/fonts) */
+@font-face {
+  font-family: "Mollie Glaston";
+  src:
+    url("/fonts/MollieGlaston.otf") format("opentype"),
+    url("/fonts/MollieGlaston.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Curated reset and base styles inspired by the provided CSS */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family:
+    var(--font-sans),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    "Apple Color Emoji",
+    "Segoe UI Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  vertical-align: middle;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Typography rhythm */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+/* Use display font for large headings */
+h1,
+h2,
+.ant-typography h1,
+.ant-typography h2 {
+  font-family: var(--font-display);
+}
+p {
+  margin: 0 0 1em;
+  color: var(--color-text-subtle);
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-primary-alt);
+  text-decoration: underline;
+}
+
+/* Forms (minimal to avoid clashing with AntD) */
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+thead th {
+  background: #f6f8f7;
+  color: #111827;
+}
+
+/* Utility cards */
+.ds-card {
+  background: var(--color-bg-container);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* Ant Design visual tweaks for contrast */
+.ant-tag {
+  border: none !important;
+  padding: 4px 10px;
+}
+
+.ant-pagination .ant-pagination-item-active {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+.ant-pagination .ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+/* Resizable table columns */
+.resizable-table {
+  position: relative;
+}
+
+.resizable-table .ant-table-thead > tr > th {
+  position: relative;
+  user-select: none;
+}
+
+.resizable-table .ant-table-thead > tr > th::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  background: transparent;
+  cursor: col-resize;
+  z-index: 1;
+  transition: background-color 0.2s ease;
+}
+
+.resizable-table .ant-table-thead > tr > th:hover::after {
+  background: rgba(14, 92, 79, 0.3);
+}
+
+.resizable-table .ant-table-thead > tr > th.resizing::after {
+  background: var(--color-primary);
+  width: 3px;
+}
+
+.resizable-table .ant-table-thead > tr > th.resizing {
+  background: rgba(14, 92, 79, 0.05);
+}
+
+/* Prevent text selection during resize */
+.resizable-table.resizing {
+  user-select: none;
+  cursor: col-resize;
+}
+
+.resizable-table.resizing .ant-table-thead > tr > th {
+  user-select: none;
+}
+
+/* Ensure table cells maintain their width during resize */
+.resizable-table .ant-table-tbody > tr > td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Compact tag styles for specialties */
+.ant-tag {
+  font-size: 10px !important;
+  padding: 1px 4px !important;
+  margin: 1px !important;
+  line-height: 1.1 !important;
+  border-radius: 3px !important;
+  max-width: 100px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Table improvements */
+.ant-table {
+  font-size: 13px;
+}
+
+.ant-table-thead > tr > th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #e9ecef;
+}
+
+/* Responsive table improvements */
+@media (max-width: 768px) {
+  .ant-table {
+    font-size: 12px;
+  }
+
+  .ant-table-tbody > tr > td {
+    padding: 6px 8px;
+  }
+
+  .ant-tag {
+    font-size: 9px !important;
+    padding: 0px 3px !important;
+    max-width: 80px !important;
+  }
+}
