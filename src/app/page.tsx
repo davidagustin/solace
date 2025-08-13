@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
+import HeroGradient from "./components/HeroGradient";
 import AdvocateCard from "../components/AdvocateCard";
 import AdvocateFilters from "../components/AdvocateFilters";
-import HeroGradient from "./components/HeroGradient";
 
 interface Advocate {
   id?: number;
@@ -23,23 +23,33 @@ interface ApiResponse {
   search: string | null;
 }
 
-type ViewMode = 'table' | 'cards';
+interface Filters {
+  degree: string;
+  experience: string;
+  city: string;
+}
 
 export default function Home() {
   const [advocates, setAdvocates] = useState<Advocate[]>([]);
-  const [allAdvocates, setAllAdvocates] = useState<Advocate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [totalAdvocates, setTotalAdvocates] = useState(0);
-  const [viewMode, setViewMode] = useState<ViewMode>('cards');
-  const [filters, setFilters] = useState({
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
+  const [filters, setFilters] = useState<Filters>({
     degree: '',
     experience: '',
     city: ''
   });
   
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  // Generate header subtitle based on search and filters
+  const headerSubtitle = searchTerm 
+    ? `Searching for "${searchTerm}"`
+    : filters.degree || filters.experience || filters.city
+    ? 'Filtered results'
+    : 'Find your perfect healthcare advocate';
 
   useEffect(() => {
     const fetchAdvocates = async (search?: string) => {
@@ -55,7 +65,6 @@ export default function Home() {
         }
         const jsonResponse: ApiResponse = await response.json();
         setAdvocates(jsonResponse.data);
-        setAllAdvocates(jsonResponse.data);
         setTotalAdvocates(jsonResponse.total);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
@@ -67,58 +76,37 @@ export default function Home() {
     fetchAdvocates(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
 
-  // Apply filters to the current advocates
-  useEffect(() => {
-    if (!allAdvocates.length) return;
-
-    let filtered = allAdvocates;
-
-    if (filters.degree) {
-      filtered = filtered.filter(advocate => advocate.degree === filters.degree);
-    }
-
-    if (filters.experience) {
-      const [min, max] = filters.experience.split('-').map(Number);
-      if (max) {
-        filtered = filtered.filter(advocate => 
-          advocate.yearsOfExperience >= min && advocate.yearsOfExperience <= max
-        );
-      } else {
-        filtered = filtered.filter(advocate => advocate.yearsOfExperience >= min);
-      }
-    }
-
-    if (filters.city) {
-      filtered = filtered.filter(advocate => advocate.city === filters.city);
-    }
-
-    setAdvocates(filtered);
-  }, [filters, allAdvocates]);
-
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
   const handleResetSearch = () => {
     setSearchTerm("");
-    setFilters({ degree: '', experience: '', city: '' });
+    setFilters({
+      degree: '',
+      experience: '',
+      city: ''
+    });
   };
 
   const handleFilterChange = (filterType: string, value: string) => {
-    setFilters(prev => ({ ...prev, [filterType]: value }));
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }));
   };
 
   const getFilterOptions = () => {
-    const degrees = Array.from(new Set(allAdvocates.map(a => a.degree)));
-    const cities = Array.from(new Set(allAdvocates.map(a => a.city)));
-    const experience = ['0-2', '3-5', '6-10', '10+'];
-
-    return { degree: degrees, experience, cities };
+    const degrees = Array.from(new Set(advocates.map(a => a.degree)));
+    const cities = Array.from(new Set(advocates.map(a => a.city)));
+    const experiences = ['0-2 years', '3-5 years', '6-10 years', '10+ years'];
+    
+    return {
+      degree: degrees.filter(Boolean),
+      experience: experiences,
+      cities: cities.filter(Boolean)
+    };
   };
-
-  const headerSubtitle = searchTerm 
-    ? `Searching for "${searchTerm}"` 
-    : "Find the right advocate for your needs";
 
   if (loading && advocates.length === 0) {
     return (
