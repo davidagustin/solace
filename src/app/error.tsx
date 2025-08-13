@@ -23,7 +23,7 @@ export default function Error({
             Something went wrong!
           </h2>
           <p className="text-gray-600 mb-8">
-            We're sorry, but something unexpected happened. Please try again.
+            We&apos;re sorry, but something unexpected happened. Please try again.
           </p>
         </div>
         
