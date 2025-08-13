@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import AdvocateCard from "../components/AdvocateCard";
 import AdvocateFilters from "../components/AdvocateFilters";
+import HeroGradient from "./components/HeroGradient";
 
 interface Advocate {
   id?: number;
@@ -115,10 +116,15 @@ export default function Home() {
     return { degree: degrees, experience, cities };
   };
 
+  const headerSubtitle = searchTerm 
+    ? `Searching for "${searchTerm}"` 
+    : "Find the right advocate for your needs";
+
   if (loading && advocates.length === 0) {
     return (
-      <main className="min-h-screen bg-gray-50 p-6">
-        <div className="max-w-7xl mx-auto">
+      <main className="min-h-screen bg-gray-50">
+        <HeroGradient subtitle="Loading advocates..." />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="flex items-center justify-center h-64">
             <div className="text-lg text-gray-600">Loading advocates...</div>
           </div>
@@ -129,8 +135,9 @@ export default function Home() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-gray-50 p-6">
-        <div className="max-w-7xl mx-auto">
+      <main className="min-h-screen bg-gray-50">
+        <HeroGradient subtitle="Error loading advocates" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <h2 className="text-red-800 font-semibold">Error</h2>
             <p className="text-red-600">{error}</p>
@@ -141,8 +148,10 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto">
+    <main className="min-h-screen bg-gray-50">
+      <HeroGradient subtitle={headerSubtitle} />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Solace Advocates</h1>
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
