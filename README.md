@@ -2,12 +2,12 @@
 
 A modern, performant web application for matching patients with the right healthcare advocates. Built with Next.js, TypeScript, and Tailwind CSS.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Application-green?style=for-the-badge&logo=vercel)](https://solace-hsro3dc1m-cryptomans-projects.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Application-green?style=for-the-badge&logo=vercel)](https://solace-rqv6.vercel.app/)
 ![Solace Advocates](https://img.shields.io/badge/Next.js-14.2.19-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.7-38B2AC?style=for-the-badge&logo=tailwind-css)
 
-**🌐 Live Application**: [https://solace-hsro3dc1m-cryptomans-projects.vercel.app/](https://solace-hsro3dc1m-cryptomans-projects.vercel.app/)
+**🌐 Live Application**: [https://solace-rqv6.vercel.app/](https://solace-rqv6.vercel.app/)
 
 ## 🚀 Features
 
@@ -180,7 +180,7 @@ The application includes comprehensive testing:
 ## 🚀 Deployment
 
 ### Live Application
-**🌐 Production URL**: [https://solace-hsro3dc1m-cryptomans-projects.vercel.app/](https://solace-hsro3dc1m-cryptomans-projects.vercel.app/)
+**🌐 Production URL**: [https://solace-rqv6.vercel.app/](https://solace-rqv6.vercel.app/)
 
 The application is currently deployed on Vercel and is live for public access.
 
